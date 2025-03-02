@@ -6,6 +6,15 @@
       <h2>New Message</h2>
       <form method="POST" action="/new">
         <label>
+          Title:
+          <input
+            type="text"
+            name="messageTitle"
+            placeholder="Put your name here..."
+            required
+          />
+        </label>
+        <label>
           Your message:
           <textarea name="messageText">I love cats :D</textarea>
         </label>
@@ -15,6 +24,7 @@
             type="text"
             name="authorName"
             placeholder="Put your name here..."
+            required
           />
         </label>
         <button type="submit">Submit</button>
