@@ -9,9 +9,10 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/new", (req, res) => {
-  const { messageText, authorName } = req.body;
+  const { messageTitle, messageText, authorName } = req.body;
 
   messages.push({
+    title: messageTitle,
     text: messageText,
     user: authorName,
     added: format(new Date(), "yyyy-MM-dd"),
