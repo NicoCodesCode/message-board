@@ -12,7 +12,7 @@ This message board allows users to create new messages that will be displayed on
 - **Express.js** - Web application framework
 - **EJS** - Embedded JavaScript templating
 - **CSS** - Styling
-- **JavaScript** - Client-side functionality
+- **JavaScript** - Functionality
 
 ## Installation
 
