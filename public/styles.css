@@ -10,7 +10,7 @@
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   --border-radius: 8px;
   --spacing-xs: 0.5rem;
-  --spacing-sm: 0.8rem;
+  --spacing-sm: 0.9rem;
   --spacing-md: 1.5rem;
   --spacing-lg: 2rem;
   --transition: all 0.3s ease;
@@ -137,7 +137,7 @@ nav a:hover {
 form {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   box-shadow: var(--shadow);
   max-width: 600px;
   margin: 0 auto;
@@ -166,14 +166,14 @@ form button[type="submit"]:hover {
 
 label {
   display: block;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   font-weight: 500;
 }
 
 input,
 textarea {
   width: 100%;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-family: inherit;
@@ -253,8 +253,7 @@ button:hover {
   }
 
   .message-card,
-  .message-detail,
-  form {
+  .message-detail {
     padding: var(--spacing-sm);
   }
 }
