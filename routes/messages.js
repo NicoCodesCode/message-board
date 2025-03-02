@@ -8,7 +8,7 @@ router.get("/new", (req, res) => {
   res.render("pages/form", { title: "New Message" });
 });
 
-router.post("/messages/new", (req, res) => {
+router.post("/new", (req, res) => {
   const { messageText, authorName } = req.body;
 
   messages.push({
