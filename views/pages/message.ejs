@@ -1,0 +1,11 @@
+<html>
+  <%- include("../partials/head") %>
+  <body>
+    <%- include("../partials/navbar") %>
+    <h2>Message details</h2>
+    <h3><%= message.title %></h3>
+    <p><%= message.text %></p>
+    <p>From: <%= message.user %></p>
+    <p><%= message.added %></p>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<html>
+  <%- include("../partials/head") %>
+  <body>
+    <%- include("../partials/navbar") %>
+    <h2>New Message</h2>
+    <form method="POST" action="/new">
+      <label>
+        Your message:
+        <textarea name="messageText"></textarea>
+      </label>
+      <label>
+        Author:
+        <input
+          type="text"
+          name="authorName"
+          placeholder="Put your name here..."
+        />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

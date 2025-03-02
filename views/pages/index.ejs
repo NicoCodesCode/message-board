@@ -1,0 +1,14 @@
+<html>
+  <%- include("../partials/head") %>
+  <body>
+    <%- include("../partials/navbar") %> <% messages.map(message => { %>
+    <p><%= message.title %></p>
+    <p>From: <%= message.user %></p>
+    <p><%= message.added %></p>
+    <a href="/messages/<%= message.id %>">
+      <button type="button">Open Message</button>
+    </a>
+    <br />
+    <% }) %>
+  </body>
+</html>
