@@ -12,7 +12,7 @@ router.get("/new", (req, res) => {
 router.post("/new", (req, res) => {
   const { messageTitle, messageText, authorName } = req.body;
 
-  messages.push({
+  messages.unshift({
     id: uuidv4(),
     title: messageTitle,
     text: messageText,
