@@ -1,15 +1,16 @@
 const { format } = require("date-fns");
+const { v4: uuidv4 } = require("uuid");
 
 const messages = [
   {
-    id: 1,
+    id: uuidv4(),
     title: "Good morning",
     text: "Hi there!",
     user: "Amando",
     added: format(new Date(), "yyyy-MM-dd"),
   },
   {
-    id: 2,
+    id: uuidv4(),
     title: "Just testing this out...",
     text: "Hello World!",
     user: "Charles",
