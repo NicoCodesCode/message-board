@@ -1,6 +1,7 @@
 # Message Board
 
-A simple message board application built with Express.js and EJS templating engine.
+A simple message board application built with Express.js and EJS templating engine.  
+The website might take some time to load at first, please be patient.
 
 ## Overview
 
