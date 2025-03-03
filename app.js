@@ -14,5 +14,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/messages", messagesRouter);
+app.get("*", (req, res) => {
+  res.status(404).render("pages/404", { title: "Not Found" });
+});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
