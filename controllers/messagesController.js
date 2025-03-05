@@ -1,4 +1,6 @@
 const messagesStorage = require("../storages/messagesStorage");
+const { validateMessage } = require("../validations/messagesValidator");
+const { validationResult } = require("express-validator");
 
 exports.getMessagesList = (req, res) => {
   res.render("pages/index", {
@@ -11,13 +13,24 @@ exports.getNewMessageForm = (req, res) => {
   res.render("pages/form", { title: "New Message" });
 };
 
-exports.createNewMessage = (req, res) => {
-  const { messageTitle, messageText, authorName } = req.body;
+exports.createNewMessage = [
+  validateMessage,
+  (req, res) => {
+    const errors = validationResult(req);
 
-  messagesStorage.addMessage(messageTitle, messageText, authorName);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .render("pages/form", { title: "New Message", errors: errors.array() });
+    }
 
-  res.redirect("/");
-};
+    const { messageTitle, messageText, authorName } = req.body;
+
+    messagesStorage.addMessage(messageTitle, messageText, authorName);
+
+    res.redirect("/");
+  },
+];
 
 exports.getMessageById = (req, res) => {
   const { messageId } = req.params;
