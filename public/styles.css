@@ -221,6 +221,10 @@ button:hover {
   color: var(--accent-color);
 }
 
+.error-text {
+  color: var(--accent-color);
+}
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
