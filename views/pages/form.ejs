@@ -11,19 +11,21 @@
           <input
             type="text"
             name="messageTitle"
+            value="<%= messageInfo?.messageTitle %>"
             placeholder="Put a good title here..."
             required
           />
         </label>
         <label>
           Your message:
-          <textarea name="messageText">I love cats :D</textarea>
+          <textarea name="messageText"><%= messageInfo.messageText %></textarea>
         </label>
         <label>
           Author:
           <input
             type="text"
             name="authorName"
+            value="<%= messageInfo?.authorName %>"
             placeholder="Put your name here..."
             required
           />

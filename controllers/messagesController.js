@@ -10,7 +10,7 @@ exports.getMessagesList = (req, res) => {
 };
 
 exports.getNewMessageForm = (req, res) => {
-  res.render("pages/form", { title: "New Message" });
+  res.render("pages/form", { title: "New Message", messageInfo: {} });
 };
 
 exports.createNewMessage = [
@@ -19,9 +19,11 @@ exports.createNewMessage = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .render("pages/form", { title: "New Message", errors: errors.array() });
+      return res.status(400).render("pages/form", {
+        title: "New Message",
+        messageInfo: req.body,
+        errors: errors.array(),
+      });
     }
 
     const { messageTitle, messageText, authorName } = req.body;
