@@ -3,16 +3,20 @@ const { format } = require("date-fns");
 const { validateMessage } = require("../validations/messagesValidator");
 const { validationResult } = require("express-validator");
 
-exports.getMessagesList = async (req, res) => {
-  const messages = await db.getAllMessages();
+exports.getMessagesList = async (req, res, next) => {
+  try {
+    const messages = await db.getAllMessages();
 
-  res.render("pages/index", {
-    title: "Home",
-    messages: messages.map((message) => ({
-      ...message,
-      added: format(message.added, "yyyy-MM-dd"),
-    })),
-  });
+    res.render("pages/index", {
+      title: "Home",
+      messages: messages.map((message) => ({
+        ...message,
+        added: format(message.added, "yyyy-MM-dd"),
+      })),
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.getNewMessageForm = (req, res) => {
@@ -21,7 +25,7 @@ exports.getNewMessageForm = (req, res) => {
 
 exports.createNewMessage = [
   validateMessage,
-  async (req, res) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -32,23 +36,29 @@ exports.createNewMessage = [
       });
     }
 
-    const { messageTitle, messageText, authorName } = req.body;
-    await db.addMessage(messageTitle, messageText, authorName);
+    try {
+      const { messageTitle, messageText, authorName } = req.body;
+      await db.addMessage(messageTitle, messageText, authorName);
 
-    res.redirect("/");
+      res.redirect("/");
+    } catch (err) {
+      next(err);
+    }
   },
 ];
 
 exports.getMessageById = async (req, res) => {
-  const { messageId } = req.params;
-  const message = await db.getMessageById(messageId);
+  try {
+    const { messageId } = req.params;
+    const message = await db.getMessageById(messageId);
 
-  if (!message) {
-    res.status(404).render("pages/404", { title: "Not Found" });
+    if (!message) throw new Error();
+
+    res.render("pages/message", {
+      title: `Message from ${message.user}`,
+      message: { ...message, added: format(message.added, "yyyy-MM-dd") },
+    });
+  } catch (err) {
+    res.redirect("*");
   }
-
-  res.render("pages/message", {
-    title: `Message from ${message.user}`,
-    message: { ...message, added: format(message.added, "yyyy-MM-dd") },
-  });
 };

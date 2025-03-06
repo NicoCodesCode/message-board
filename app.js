@@ -16,7 +16,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/messages", messagesRouter);
 app.get("*", (req, res) => {
-  res.status(404).render("pages/404", { title: "Not Found" });
+  res.status(404).render("pages/error", {
+    title: "Not Found",
+    errorMessage: "404 Not Found :C",
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).render("pages/error", {
+    title: "Error",
+    errorMessage: "Internal Server Error",
+  });
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
