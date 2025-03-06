@@ -1,11 +1,17 @@
-const messagesStorage = require("../storages/messagesStorage");
+const db = require("../db/queries");
+const { format } = require("date-fns");
 const { validateMessage } = require("../validations/messagesValidator");
 const { validationResult } = require("express-validator");
 
-exports.getMessagesList = (req, res) => {
+exports.getMessagesList = async (req, res) => {
+  const messages = await db.getAllMessages();
+
   res.render("pages/index", {
     title: "Home",
-    messages: messagesStorage.getAllMessages(),
+    messages: messages.map((message) => ({
+      ...message,
+      added: format(message.added, "yyyy-MM-dd"),
+    })),
   });
 };
 
@@ -15,7 +21,7 @@ exports.getNewMessageForm = (req, res) => {
 
 exports.createNewMessage = [
   validateMessage,
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -27,16 +33,15 @@ exports.createNewMessage = [
     }
 
     const { messageTitle, messageText, authorName } = req.body;
-
-    messagesStorage.addMessage(messageTitle, messageText, authorName);
+    await db.addMessage(messageTitle, messageText, authorName);
 
     res.redirect("/");
   },
 ];
 
-exports.getMessageById = (req, res) => {
+exports.getMessageById = async (req, res) => {
   const { messageId } = req.params;
-  const message = messagesStorage.findMessageById(messageId);
+  const message = await db.getMessageById(messageId);
 
   if (!message) {
     res.status(404).render("pages/404", { title: "Not Found" });
@@ -44,6 +49,6 @@ exports.getMessageById = (req, res) => {
 
   res.render("pages/message", {
     title: `Message from ${message.user}`,
-    message,
+    message: { ...message, added: format(message.added, "yyyy-MM-dd") },
   });
 };
