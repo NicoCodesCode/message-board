@@ -14,6 +14,7 @@ This message board allows users to create new messages that will be displayed on
 - **EJS** - Embedded JavaScript templating
 - **CSS** - Styling
 - **JavaScript** - Functionality
+- **Node-Postgres** - PostgreSQL client for Node.js
 
 ## Installation
 
